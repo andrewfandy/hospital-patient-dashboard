@@ -2,11 +2,9 @@ package com.application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -32,9 +30,7 @@ public class App extends Application {
     }
 
     private static Parent loadPages(String fxml) throws IOException {
-        HBox hbox = new HBox();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        hbox.setAlignment(Pos.CENTER);
         return fxmlLoader.load();
     }
 
