@@ -13,8 +13,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        // scene = new Scene(root);
         scene = new Scene(loadPages("Home"));
         stage.setTitle("Hospital Patient Data Registration");
         Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));

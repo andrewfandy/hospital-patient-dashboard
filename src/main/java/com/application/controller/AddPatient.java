@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.application.App;
+import com.application.model.Patient;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,8 +22,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
 public class AddPatient implements Initializable {
-    private final Map<String, Object> patientData = new HashMap<>();
-
     @FXML
     private AnchorPane container;
 
@@ -47,9 +46,9 @@ public class AddPatient implements Initializable {
     @FXML
     private Text IDMaxChar;
 
-    public Map<String, Object> getPatientData() {
-        return patientData;
-    }
+    // private void Map<String, Object> savePatient() {
+    // // seharusnya seperti apa
+    // }
 
     private String getPatientName() {
         String data = nameField.getText().trim();
@@ -78,11 +77,11 @@ public class AddPatient implements Initializable {
     }
 
     @FXML
-    private String getPatientBirth() {
+    private LocalDate getPatientBirth() {
         LocalDate date = birthDate.getValue();
         if (date != null) {
-            String data = date.toString();
-            return data;
+            // String data = date.toString();
+            return date;
         }
         return null;
     }
@@ -108,11 +107,12 @@ public class AddPatient implements Initializable {
     @FXML
     private void onSubmit(ActionEvent evt) throws IOException {
         if (submitValidation()) {
-            patientData.put("patient_name", getPatientName());
-            patientData.put("patient_address", getPatientAddress());
-            patientData.put("patient_ID", getPatientID());
-            patientData.put("patient_birthdate", getPatientBirth());
-            System.out.println(patientData);
+            Patient patient = new Patient();
+
+            patient.setName(getPatientName());
+            patient.setAddress(getPatientAddress());
+            patient.setPatientID(getPatientID());
+            patient.setBirth(getPatientBirth());
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Input must not be empty");
