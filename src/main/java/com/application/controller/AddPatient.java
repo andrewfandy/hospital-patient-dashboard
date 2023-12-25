@@ -13,12 +13,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
 public class AddPatient implements Initializable {
     private final Map<String, Object> patientData = new HashMap<>();
+
+    @FXML
+    private AnchorPane container;
 
     @FXML
     private TextField nameField;
@@ -32,7 +38,17 @@ public class AddPatient implements Initializable {
     @FXML
     private DatePicker birthDate;
 
-    public AddPatient() {
+    @FXML
+    private Text nameMaxChar;
+
+    @FXML
+    private Text addressMaxChar;
+
+    @FXML
+    private Text IDMaxChar;
+
+    public Map<String, Object> getPatientData() {
+        return patientData;
     }
 
     private String getPatientName() {
@@ -98,13 +114,11 @@ public class AddPatient implements Initializable {
             patientData.put("patient_birthdate", getPatientBirth());
             System.out.println(patientData);
         } else {
-            // TODO : Create Alert button OK to close
-            Alert alert = new Alert(null);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Input must not be empty");
             alert.setTitle("Empty Input");
-            alert.close();
-
-            alert.show();
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
 
@@ -116,6 +130,37 @@ public class AddPatient implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addressField.setWrapText(true);
+
+        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            int maxChar = 20;
+            int currentChars = maxChar - newValue.length();
+            nameMaxChar.setText(currentChars + " character(s) left");
+            if (newValue.length() > maxChar) {
+                nameField.setText(newValue.substring(0, maxChar));
+            }
+        });
+
+        addressField.textProperty().addListener((observable, oldValue, newValue) -> {
+            int maxChar = 50;
+            int currentChars = maxChar - newValue.length();
+            addressMaxChar.setText(currentChars + " character(s) left");
+            addressField.setWrapText(true);
+            if (newValue.length() > maxChar) {
+                addressField.setText(newValue.substring(0, maxChar));
+            }
+        });
+        patientID.setTextFormatter(
+                new TextFormatter<>(change -> (change.getControlNewText().matches("^[0-9]*$")) ? change : null));
+
+        patientID.textProperty().addListener((observable, oldValue, newValue) -> {
+            int maxChar = 15;
+            int currentChars = maxChar - newValue.length();
+            IDMaxChar.setText(currentChars + " character(s) left");
+
+            if (newValue.length() > maxChar) {
+                patientID.setText(newValue.substring(0, maxChar));
+            }
+        });
+
     }
 }
