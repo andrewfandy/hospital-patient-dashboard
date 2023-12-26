@@ -3,8 +3,6 @@ package com.application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.application.App;
@@ -17,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
@@ -46,79 +43,18 @@ public class AddPatient implements Initializable {
     @FXML
     private Text IDMaxChar;
 
-    // private void Map<String, Object> savePatient() {
-    // // seharusnya seperti apa
-    // }
-
-    private String getPatientName() {
-        String data = nameField.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-        return data;
-    }
-
-    private String getPatientAddress() {
-
-        String data = addressField.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-        return data;
-    }
-
-    private String getPatientID() {
-        String data = patientID.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-
-        return data;
-    }
-
-    @FXML
-    private LocalDate getPatientBirth() {
-        LocalDate date = birthDate.getValue();
-        if (date != null) {
-            // String data = date.toString();
-            return date;
-        }
-        return null;
-    }
-
-    @FXML
-    private Boolean submitValidation() {
-        if (getPatientName() == null) {
-            return false;
-        }
-        if (getPatientAddress() == null) {
-            return false;
-        }
-        if (getPatientID() == null) {
-            return false;
-        }
-        if (getPatientBirth() == null) {
-            return false;
-        }
-
-        return true;
-    }
-
     @FXML
     private void onSubmit(ActionEvent evt) throws IOException {
-        if (submitValidation()) {
-            Patient patient = new Patient();
+        Form form = new Form();
 
-            patient.setName(getPatientName());
-            patient.setAddress(getPatientAddress());
-            patient.setPatientID(getPatientID());
-            patient.setBirth(getPatientBirth());
+        String name = nameField.getText().trim();
+        String address = addressField.getText().trim();
+        String patientID = this.patientID.getText().trim();
+        LocalDate birth = birthDate.getValue();
+        if (form.validation(name, address, patientID, birth)) {
+            form.savePatientData(name, address, patientID, birth);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Input must not be empty");
-            alert.setTitle("Empty Input");
-            alert.setHeaderText(null);
-            alert.showAndWait();
+            form.displayError("All fields are required");
         }
     }
 

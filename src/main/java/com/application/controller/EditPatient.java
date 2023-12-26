@@ -1,5 +1,5 @@
 package com.application.controller;
 
-public class Edit {
+public class EditPatient {
 
 }
