@@ -30,9 +30,9 @@ public class Form {
     }
 
     public boolean validation(String name, String address, String patientID, LocalDate birth) {
-        if (name.isEmpty() && address.isEmpty() && patientID.isEmpty() && birth == null)
-            return false;
-        return true;
+        if (!name.isEmpty() && !address.isEmpty() && !patientID.isEmpty() && birth != null)
+            return true;
+        return false;
     }
 
     public void displayError(String s) {
