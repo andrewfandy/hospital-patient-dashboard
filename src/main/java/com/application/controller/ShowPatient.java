@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.application.App;
 import com.application.model.Patient;
 
 import javafx.event.ActionEvent;
@@ -32,7 +31,7 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void toMenu(ActionEvent evt) throws IOException {
-        App.setRoot("Home");
+        Navigation.setRoot("Home");
 
     }
 
