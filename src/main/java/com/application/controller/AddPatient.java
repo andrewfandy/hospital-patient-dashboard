@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 import com.application.App;
-import com.application.model.Patient;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,17 +41,17 @@ public class AddPatient implements Initializable {
     private Text IDMaxChar;
 
     @FXML
-    private void onSubmit(ActionEvent evt) throws IOException {
+    private void onSubmit(ActionEvent evt) {
         Form form = new Form();
 
         String name = nameField.getText().trim();
         String address = addressField.getText().trim();
         String patientID = this.patientID.getText().trim();
         LocalDate birth = birthDate.getValue();
-        if (form.validation(name, address, patientID, birth)) {
+        if (form.submitValidation(name, address, patientID, birth)) {
             form.savePatientData(name, address, patientID, birth);
         } else {
-            form.displayError("All fields are required");
+            form.showNotification("All fields are required", "ERROR");
         }
     }
 

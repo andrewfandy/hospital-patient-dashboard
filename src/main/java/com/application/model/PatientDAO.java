@@ -16,7 +16,7 @@ public class PatientDAO {
     private final String password = "password";
 
     public PatientDAO() {
-        String url = "jdcb:mysql://localhost:3306/patient_database";
+        String url = "jdbc:mysql://localhost:3306/patient_database";
         String username = this.user;
         String password = this.password;
 

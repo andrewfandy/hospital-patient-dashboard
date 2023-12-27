@@ -29,17 +29,23 @@ public class Form {
         }
     }
 
-    public boolean validation(String name, String address, String patientID, LocalDate birth) {
+    public boolean submitValidation(String name, String address, String patientID, LocalDate birth) {
         if (!name.isEmpty() && !address.isEmpty() && !patientID.isEmpty() && birth != null)
             return true;
         return false;
     }
 
-    public void displayError(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText(s);
-        alert.setHeaderText(null);
-        alert.showAndWait();
+    public void showNotification(String s, String type) {
+        try {
+
+            Alert alert = new Alert(Alert.AlertType.valueOf(type));
+            alert.setContentText(s);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid alert type");
+            e.printStackTrace();
+        }
     }
 
 }
