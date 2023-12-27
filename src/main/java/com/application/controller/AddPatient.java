@@ -3,12 +3,8 @@ package com.application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-
 import com.application.App;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,13 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
 public class AddPatient implements Initializable {
-    private final Map<String, Object> patientData = new HashMap<>();
-
     @FXML
     private AnchorPane container;
 
@@ -47,78 +40,18 @@ public class AddPatient implements Initializable {
     @FXML
     private Text IDMaxChar;
 
-    public Map<String, Object> getPatientData() {
-        return patientData;
-    }
-
-    private String getPatientName() {
-        String data = nameField.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-        return data;
-    }
-
-    private String getPatientAddress() {
-
-        String data = addressField.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-        return data;
-    }
-
-    private String getPatientID() {
-        String data = patientID.getText().trim();
-        if (data.isEmpty()) {
-            return null;
-        }
-
-        return data;
-    }
-
     @FXML
-    private String getPatientBirth() {
-        LocalDate date = birthDate.getValue();
-        if (date != null) {
-            String data = date.toString();
-            return data;
-        }
-        return null;
-    }
+    private void onSubmit(ActionEvent evt) {
+        Form form = new Form();
 
-    @FXML
-    private Boolean submitValidation() {
-        if (getPatientName() == null) {
-            return false;
-        }
-        if (getPatientAddress() == null) {
-            return false;
-        }
-        if (getPatientID() == null) {
-            return false;
-        }
-        if (getPatientBirth() == null) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @FXML
-    private void onSubmit(ActionEvent evt) throws IOException {
-        if (submitValidation()) {
-            patientData.put("patient_name", getPatientName());
-            patientData.put("patient_address", getPatientAddress());
-            patientData.put("patient_ID", getPatientID());
-            patientData.put("patient_birthdate", getPatientBirth());
-            System.out.println(patientData);
+        String name = nameField.getText().trim();
+        String address = addressField.getText().trim();
+        String patientID = this.patientID.getText().trim();
+        LocalDate birth = birthDate.getValue();
+        if (form.submitValidation(name, address, patientID, birth)) {
+            form.savePatientData(name, address, patientID, birth);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Input must not be empty");
-            alert.setTitle("Empty Input");
-            alert.setHeaderText(null);
-            alert.showAndWait();
+            form.showNotification("All fields are required", "ERROR");
         }
     }
 

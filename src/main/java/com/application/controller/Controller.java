@@ -13,16 +13,6 @@ public class Controller {
         App.setRoot("Form");
     }
 
-    // @FXML
-    // private void editPatient(ActionEvent evt) throws IOException {
-    // System.out.println("Edit Patient");
-    // }
-
-    // @FXML
-    // private void deletePatient(ActionEvent evt) throws IOException {
-    // System.out.println("Delete Patient");
-    // }
-
     @FXML
     private void displayPatient(ActionEvent evt) throws IOException {
         App.setRoot("ShowPatient");

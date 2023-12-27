@@ -13,12 +13,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        // scene = new Scene(root);
         scene = new Scene(loadPages("Home"));
         stage.setTitle("Hospital Patient Data Registration");
         Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
-        stage.setMaximized(true);
+        // stage.setMaximized(true);
         stage.getIcons().add(icon);
         stage.setScene(scene);
 
@@ -26,7 +24,12 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadPages(fxml));
+        try {
+            scene.setRoot(loadPages(fxml));
+
+        } catch (IOException e) {
+            System.out.println(fxml + " not found");
+        }
     }
 
     private static Parent loadPages(String fxml) throws IOException {
