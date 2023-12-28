@@ -11,8 +11,8 @@ import java.util.List;
 
 public class PatientDAO {
     private Connection connection;
-    private final String user = "username";
-    private final String password = "password";
+    private final String user = "admin";
+    private final String password = "admin";
 
     public PatientDAO() {
         String url = "jdbc:mysql://localhost:3306/patient_database";

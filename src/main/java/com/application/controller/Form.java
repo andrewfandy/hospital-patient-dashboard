@@ -70,7 +70,7 @@ public class Form implements Initializable {
     }
 
     @FXML
-    private void onSubmit(ActionEvent evt) {
+    public void onSubmit(ActionEvent evt) {
         String name = nameField.getText().trim();
         String address = addressField.getText().trim();
         String patientID = this.patientID.getText().trim();

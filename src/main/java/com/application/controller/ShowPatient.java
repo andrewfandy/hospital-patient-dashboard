@@ -18,15 +18,14 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void deleteData(ActionEvent evt) throws IOException {
-        App.setRoot("Home");
+        System.out.println("Delete data");
 
     }
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-
-        App.setRoot("Form");
-
+        System.out.println("to edit form");
+        // to edit form
     }
 
     @FXML
