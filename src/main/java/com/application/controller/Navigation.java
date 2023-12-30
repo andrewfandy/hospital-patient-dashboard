@@ -9,13 +9,18 @@ import javafx.fxml.FXML;
 public class Navigation extends App {
 
     @FXML
-    private void addPatient(ActionEvent evt) throws IOException {
-        App.setRoot("Form");
+    public void addPatient(ActionEvent evt) throws IOException {
+        super.setRoot("Form");
     }
 
     @FXML
-    private void displayPatient(ActionEvent evt) throws IOException {
-        App.setRoot("ShowPatient");
+    public void editPatient(ActionEvent evt) throws IOException {
+        super.setRoot("Form");
+    }
+
+    @FXML
+    public void displayPatient(ActionEvent evt) throws IOException {
+        super.setRoot("ShowPatient");
     }
 
 }

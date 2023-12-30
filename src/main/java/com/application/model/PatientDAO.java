@@ -11,39 +11,57 @@ import java.util.List;
 
 public class PatientDAO {
     private Connection connection;
-    private final String user = "admin";
-    private final String password = "admin";
+    private final String user = "root";
+    private final String password = "root";
+    private final String database = "patients_database";
+    private final String table = "patients";
 
     public PatientDAO() {
-        String url = "jdbc:mysql://localhost:3306/patient_database";
+        String url = "jdbc:mysql://localhost:3306/" + database;
         String username = this.user;
         String password = this.password;
 
         try {
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println("No SQL Connection, please try again");
         }
     }
 
-    public void savePatient(Patient patient) throws SQLException {
+    public void deletePatient(Patient patient) throws SQLException {
+        String sql = "DELETE FROM " + table + " WHERE patient_id = ?";
 
-        String sql = "INSERT INTO patient_database (name, address, patient_id, birth_date) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, Integer.parseInt(patient.getPatientID()));
+            statement.executeUpdate();
+        }
+    }
+
+    public void savePatient(Patient patient) throws SQLException {
+        String sql = "INSERT INTO " + table + " (name, address, patient_id, birth_date) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, patient.getName());
             statement.setString(2, patient.getAddress());
-            statement.setString(3, patient.getPatientID());
+            statement.setLong(3, Long.parseLong(patient.getPatientID()));
             statement.setDate(4, Date.valueOf(patient.getBirth()));
 
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Success: " + patient.toString());
+            } else {
+                System.err.println("ERROR, failed to save patient");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("ERROR, can't create");
         }
     }
 
     public List<Patient> getAllPatients() throws SQLException {
         List<Patient> patients = new ArrayList<>();
-        String sql = "SELECT * FROM patient_database";
+        String sql = "SELECT * FROM " + table + " ORDER BY patient_id ASC";
 
         try (java.sql.Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql)) {
@@ -51,7 +69,7 @@ public class PatientDAO {
                 Patient patient = new Patient();
                 patient.setName(resultSet.getString("name"));
                 patient.setAddress(resultSet.getString("address"));
-                patient.setPatientID(resultSet.getString("patient_id"));
+                patient.setPatientID("" + resultSet.getLong("patient_id"));
                 patient.setBirth(resultSet.getDate("birth_date").toLocalDate());
 
                 patients.add(patient);
