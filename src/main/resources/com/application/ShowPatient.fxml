@@ -11,11 +11,11 @@
    <children>
       <TableView fx:id="tableContainer" layoutX="14.0" layoutY="14.0" prefHeight="462.0" prefWidth="796.0">
          <columns>
-            <TableColumn fx:id="index_no" prefWidth="28.000032424926758" text="No" />
-            <TableColumn fx:id="name" prefWidth="261.59996795654297" text="Nama Pasien" />
-            <TableColumn fx:id="patient_id" prefWidth="120.0" text="NIK" />
-            <TableColumn fx:id="birth_date" prefWidth="92.00003051757812" text="Tanggal Lahir" />
-            <TableColumn fx:id="address" minWidth="0.0" prefWidth="292.0" text="Alamat" />
+            <TableColumn fx:id="indexCol" prefWidth="28.000032424926758" text="No" />
+            <TableColumn fx:id="nameCol" prefWidth="261.59996795654297" text="Nama Pasien" />
+            <TableColumn fx:id="patientIDCol" prefWidth="120.0" text="NIK" />
+            <TableColumn fx:id="birthCol" prefWidth="92.00003051757812" text="Tanggal Lahir" />
+            <TableColumn fx:id="addressCol" minWidth="0.0" prefWidth="292.0" text="Alamat" />
          </columns>
       </TableView>
       <Pane layoutX="24.0" layoutY="495.0" prefHeight="38.0" prefWidth="784.0">

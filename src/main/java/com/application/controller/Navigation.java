@@ -8,19 +8,28 @@ import javafx.fxml.FXML;
 
 public class Navigation extends App {
 
-    @FXML
-    public void addPatient(ActionEvent evt) throws IOException {
-        super.setRoot("Form");
+    public void navigateTo(String fxml) {
+        try {
+            super.setRoot(fxml);
+        } catch (IOException e) {
+            NotificationUtil.showNotification("Failed to navigate", "ERROR");
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void editPatient(ActionEvent evt) throws IOException {
-        super.setRoot("Form");
+    private void addPatient(ActionEvent evt) throws IOException {
+        navigateTo("Form");
     }
 
     @FXML
-    public void displayPatient(ActionEvent evt) throws IOException {
-        super.setRoot("ShowPatient");
+    private void editPatient(ActionEvent evt) throws IOException {
+        navigateTo("Form");
+    }
+
+    @FXML
+    private void displayPatient(ActionEvent evt) throws IOException {
+        navigateTo("ShowPatient");
     }
 
 }

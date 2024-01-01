@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -32,7 +31,6 @@ public class App extends Application {
 
     public static void setRoot(String fxml) throws IOException {
         try {
-            AnchorPane anchorPane = new AnchorPane();
             scene.setRoot(loadPages(fxml));
 
         } catch (IOException e) {

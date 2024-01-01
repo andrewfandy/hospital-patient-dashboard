@@ -6,17 +6,24 @@ import java.util.ResourceBundle;
 
 import com.application.model.Patient;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
 import java.sql.SQLException;
 import com.application.model.PatientDAO;
 
 public class ShowPatient implements Initializable {
     @FXML
     private TableView<Patient> tableContainer;
+    @FXML
+    private TableColumn<Patient, String> indexCol, nameCol, addressCol, patientIDCol, birthCol;
     private PatientDAO patientDAO;
 
     public ShowPatient() {
@@ -44,8 +51,13 @@ public class ShowPatient implements Initializable {
     @FXML
     private void showData() {
         try {
-            tableContainer.getItems().clear();
-            tableContainer.getItems().addAll(patientDAO.getAllPatients());
+            ObservableList<Patient> patients = FXCollections.observableArrayList(patientDAO.getAllPatients());
+            tableContainer.setItems(patients);
+            indexCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId() + ""));
+            nameCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getName()));
+            addressCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
+            birthCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getBirth() + ""));
+            patientIDCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getPatientID()));
         } catch (SQLException e) {
             e.printStackTrace();
             NotificationUtil.showNotification("Failed to show data", "ERROR");
@@ -56,7 +68,7 @@ public class ShowPatient implements Initializable {
     private void toEditForm(ActionEvent evt) throws IOException {
         System.out.println("to edit form");
         Navigation navigation = new Navigation();
-        navigation.editPatient(evt);
+        navigation.navigateTo("Form");
     }
 
     @FXML
