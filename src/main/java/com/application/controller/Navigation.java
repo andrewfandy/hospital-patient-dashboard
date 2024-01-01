@@ -6,24 +6,31 @@ import com.application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class Navigation extends App {
+// refactor to utils package
 
-    public void navigateTo(String fxml) {
+public class Navigation extends App {
+    private static boolean editMode;
+
+    public static void navigateTo(String fxml) {
         try {
-            super.setRoot(fxml);
+            App.setRoot(fxml);
         } catch (IOException e) {
             NotificationUtil.showNotification("Failed to navigate", "ERROR");
             e.printStackTrace();
         }
     }
 
-    @FXML
-    private void addPatient(ActionEvent evt) throws IOException {
-        navigateTo("Form");
+    public static void setEditMode(boolean visibility) {
+        editMode = visibility;
+    }
+
+    public static boolean getEditMode() {
+        return editMode;
     }
 
     @FXML
-    private void editPatient(ActionEvent evt) throws IOException {
+    private void addPatient(ActionEvent evt) throws IOException {
+        setEditMode(false);
         navigateTo("Form");
     }
 

@@ -14,18 +14,18 @@ import com.application.controller.NotificationUtil;
 
 public class PatientDAO {
     private Connection connection;
-    private final String user = "root";
-    private final String password = "root";
-    private final String database = "patients_database";
-    private final String table = "patients";
+    private final String USER = "root";
+    private final String PASSWORD = "root";
+    private final String DATABASE = "patients_database";
+    private final String TABLE = "patients";
 
     public PatientDAO() {
-        String url = "jdbc:mysql://localhost:3306/" + database;
-        String username = this.user;
-        String password = this.password;
+        final String URL = "jdbc:mysql://localhost:3306/" + DATABASE;
+        final String USER = this.USER;
+        final String PASSWORD = this.PASSWORD;
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             NotificationUtil.showNotification("No SQL Connection, please try again", "ERROR");
 
@@ -33,7 +33,7 @@ public class PatientDAO {
     }
 
     public void deletePatient(Patient patient) throws SQLException {
-        String sql = "DELETE FROM " + table + " WHERE idpatient = ?";
+        String sql = "DELETE FROM " + TABLE + " WHERE idpatient = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, patient.getId());
@@ -45,7 +45,7 @@ public class PatientDAO {
     }
 
     public void savePatient(Patient patient) throws SQLException {
-        String sql = "INSERT INTO " + table + " (name, address, patient_id, birth_date) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (name, address, patient_id, birth_date) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, patient.getName());
@@ -80,7 +80,7 @@ public class PatientDAO {
 
     public List<Patient> getAllPatients() throws SQLException {
         List<Patient> patients = new ArrayList<>();
-        String sql = "SELECT * FROM " + table + " ORDER BY idpatient ASC";
+        String sql = "SELECT * FROM " + TABLE + " ORDER BY idpatient ASC";
 
         try (java.sql.Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql)) {

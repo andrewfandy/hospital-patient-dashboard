@@ -10,14 +10,17 @@ import java.io.IOException;
 
 public class App extends Application {
     private static Scene scene;
+    private final String DEFAULT = "Home";
+    private final String ICON = "/images/icon.png";
 
     @Override
     public void start(Stage stage) throws IOException {
+
         try {
             // Starting Page
-            scene = new Scene(loadPages("Home"));
+            scene = new Scene(loadPages(DEFAULT));
             stage.setTitle("Hospital Patient Data Registration");
-            Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
+            Image icon = new Image(getClass().getResourceAsStream(ICON));
             stage.setMaximized(true);
             stage.getIcons().add(icon);
             stage.setScene(scene);
@@ -35,7 +38,7 @@ public class App extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println(fxml + " not found");
+            System.out.println(fxml + " couldn't be loaded");
         }
     }
 

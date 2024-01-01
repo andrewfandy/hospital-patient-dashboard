@@ -12,11 +12,16 @@ import com.application.model.PatientDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
+
+// TODO : Refactor this class to be used in both edit and add patient
+// TODO : Refactor to abstract class
+// TODO : Refactor validation to other class
 
 public class Form implements Initializable {
     @FXML
@@ -27,6 +32,8 @@ public class Form implements Initializable {
     private DatePicker birthDate;
     @FXML
     private Text nameMaxChar, addressMaxChar, IDMaxChar;
+    @FXML
+    private Button deleteButton, nextBtn, prevBtn;
 
     private PatientDAO patientDAO;
 
@@ -75,15 +82,18 @@ public class Form implements Initializable {
         Navigation.setRoot("Home");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        addTextLimiterTextField(nameField, nameMaxChar, 20);
-        addTextLimiterTextArea(addressField, addressMaxChar, 50);
-        addressField.setWrapText(true);
-        addTextLimiterTextField(patientID, IDMaxChar, 15);
+    @FXML
+    public void onDeleteData(ActionEvent evt) throws IOException {
+        System.out.println("Delete data");
+    }
 
-        patientID.setTextFormatter(
-                new TextFormatter<>(change -> (change.getControlNewText().matches("^[0-9]*$")) ? change : null));
+    @FXML
+    public void onNextBtn(ActionEvent evt) throws IOException {
+        System.out.println("Next button");
+    }
+
+    public void onPrevBtn(ActionEvent evt) throws IOException {
+        System.out.println("Prev button");
 
     }
 
@@ -106,4 +116,31 @@ public class Form implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void edit(boolean visibility) {
+        System.out.println(visibility);
+        deleteButton.setVisible(visibility);
+        deleteButton.setManaged(visibility);
+
+        nextBtn.setVisible(visibility);
+        nextBtn.setManaged(visibility);
+
+        prevBtn.setVisible(visibility);
+        prevBtn.setManaged(visibility);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        edit(Navigation.getEditMode());
+        addTextLimiterTextField(nameField, nameMaxChar, 20);
+        addTextLimiterTextArea(addressField, addressMaxChar, 50);
+        addressField.setWrapText(true);
+        addTextLimiterTextField(patientID, IDMaxChar, 15);
+
+        patientID.setTextFormatter(
+                new TextFormatter<>(change -> (change.getControlNewText().matches("^[0-9]*$")) ? change : null));
+
+    }
+
 }

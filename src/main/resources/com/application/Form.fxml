@@ -82,14 +82,33 @@
                   <DatePicker fx:id="birthDate" editable="false" layoutX="122.0" prefHeight="26.0" prefWidth="195.0" />
                </children>
             </Pane>
-            <Pane layoutX="35.0" layoutY="321.0">
+            <Pane layoutX="11.0" layoutY="316.0" prefHeight="40.0" prefWidth="464.0">
                <children>
-                  <Button fx:id="submitButton" layoutX="310.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="40.0" prefWidth="122.0" text="Submit">
+                  <Button fx:id="submitButton" layoutX="342.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="40.0" prefWidth="122.0" text="Submit">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
                   </Button>
                   <Button fx:id="backHome" mnemonicParsing="false" onAction="#toMenu" prefHeight="40.0" prefWidth="162.0" text="Back to Home">
+                     <font>
+                        <Font name="Verdana" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteButton" layoutX="192.0" mnemonicParsing="false" onAction="#onDeleteData" prefHeight="40.0" prefWidth="122.0" text="Delete">
+                     <font>
+                        <Font name="Verdana" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="arrowWrapper" layoutX="195.0" layoutY="368.0" prefHeight="40.0" prefWidth="154.0">
+               <children>
+                  <Button fx:id="nextBtn" layoutX="86.0" mnemonicParsing="false" onAction="#onNextBtn" prefHeight="40.0" prefWidth="54.0" text="=&gt;">
+                     <font>
+                        <Font name="Verdana" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="prevBtn" layoutX="23.0" mnemonicParsing="false" onAction="#onPrevBtn" prefHeight="40.0" prefWidth="54.0" text="&lt;=">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>

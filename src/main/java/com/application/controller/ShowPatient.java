@@ -52,8 +52,10 @@ public class ShowPatient implements Initializable {
     private void showData() {
         try {
             ObservableList<Patient> patients = FXCollections.observableArrayList(patientDAO.getAllPatients());
+
+            System.out.println(patients.size());
             tableContainer.setItems(patients);
-            indexCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId() + ""));
+            indexCol.setCellValueFactory(cell -> new SimpleStringProperty(patients.indexOf(cell.getValue()) + 1 + ""));
             nameCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getName()));
             addressCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
             birthCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getBirth() + ""));
@@ -66,9 +68,8 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-        System.out.println("to edit form");
-        Navigation navigation = new Navigation();
-        navigation.navigateTo("Form");
+        Navigation.setEditMode(true);
+        Navigation.navigateTo("Form");
     }
 
     @FXML
