@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 
 import java.sql.SQLException;
 import com.application.model.PatientDAO;
+import com.application.utils.NotificationUtil;
 
 public class ShowPatient implements Initializable {
     @FXML
@@ -68,13 +69,13 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-        Navigation.setEditMode(true);
-        Navigation.navigateTo("Form");
+
+        Navigation.navigateTo("Form", "EditPatient");
     }
 
     @FXML
     private void toMenu(ActionEvent evt) throws IOException {
-        Navigation.setRoot("Home");
+        Navigation.navigateTo("Home", "Home");
 
     }
 

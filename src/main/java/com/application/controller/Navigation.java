@@ -3,40 +3,35 @@ package com.application.controller;
 import java.io.IOException;
 
 import com.application.App;
+import com.application.utils.NotificationUtil;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 
 // refactor to utils package
 
 public class Navigation extends App {
-    private static boolean editMode;
 
-    public static void navigateTo(String fxml) {
+    public static void navigateTo(String fxml, String controller) {
         try {
-            App.setRoot(fxml);
+            App.setRoot(fxml, controller);
         } catch (IOException e) {
             NotificationUtil.showNotification("Failed to navigate", "ERROR");
             e.printStackTrace();
         }
     }
 
-    public static void setEditMode(boolean visibility) {
-        editMode = visibility;
-    }
-
-    public static boolean getEditMode() {
-        return editMode;
-    }
-
     @FXML
     private void addPatient(ActionEvent evt) throws IOException {
-        setEditMode(false);
-        navigateTo("Form");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setController(AddPatient.class);
+        navigateTo("Form", "AddPatient");
     }
 
     @FXML
     private void displayPatient(ActionEvent evt) throws IOException {
-        navigateTo("ShowPatient");
+        navigateTo("ShowPatient", "ShowPatient");
     }
 
 }

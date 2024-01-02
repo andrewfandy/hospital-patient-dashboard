@@ -3,11 +3,12 @@ package com.application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.application.model.Patient;
 import com.application.model.PatientDAO;
+import com.application.utils.NotificationUtil;
+import com.application.utils.ValidationUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,9 +22,8 @@ import javafx.scene.text.Text;
 
 // TODO : Refactor this class to be used in both edit and add patient
 // TODO : Refactor to abstract class
-// TODO : Refactor validation to other class
 
-public class Form implements Initializable {
+public abstract class Form implements Initializable {
     @FXML
     private TextField nameField, patientID;
     @FXML
@@ -31,47 +31,27 @@ public class Form implements Initializable {
     @FXML
     private DatePicker birthDate;
     @FXML
-    private Text nameMaxChar, addressMaxChar, IDMaxChar;
+    protected Text nameMaxChar, addressMaxChar, IDMaxChar;
     @FXML
-    private Button deleteButton, nextBtn, prevBtn;
-
-    private PatientDAO patientDAO;
-
-    public Form() {
-        this.patientDAO = new PatientDAO();
-    }
-
-    // Save to Patient DAO
-    private void savePatientData(String name, String address, String patientID, LocalDate birth) {
-        Patient patient = new Patient();
-        patient.setName(name);
-        patient.setAddress(address);
-        patient.setPatientID(patientID);
-        patient.setBirth(birth);
-
-        try {
-            patientDAO.savePatient(patient);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            NotificationUtil.showNotification("Failed to save data", "ERROR");
-        }
-    }
-
-    private boolean submitValidation(String name, String address, String patientID, LocalDate birth) {
-
-        if (!name.isEmpty() && !address.isEmpty() && !patientID.isEmpty() && birth != null)
-            return true;
-        return false;
-    }
+    protected Button deleteButton, nextBtn, prevBtn;
 
     @FXML
     public void onSubmit(ActionEvent evt) {
-        String name = nameField.getText().trim();
-        String address = addressField.getText().trim();
-        String patientID = this.patientID.getText().trim();
-        LocalDate birth = birthDate.getValue();
-        if (submitValidation(name, address, patientID, birth)) {
-            savePatientData(name, address, patientID, birth);
+        Patient patient = new Patient();
+        patient.setName(nameField.getText().trim());
+        patient.setAddress(addressField.getText().trim());
+        patient.setPatientID(patientID.getText().trim());
+        patient.setBirth(birthDate.getValue());
+
+        if (ValidationUtils.isSubmitValid(patient)) {
+            try {
+                PatientDAO patientDAO = new PatientDAO();
+                patientDAO.savePatient(patient);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                NotificationUtil.showNotification("Failed to save data", "ERROR");
+            }
+
         } else {
             NotificationUtil.showNotification("All fields are required", "ERROR");
         }
@@ -79,7 +59,7 @@ public class Form implements Initializable {
 
     @FXML
     private void toMenu(ActionEvent evt) throws IOException {
-        Navigation.setRoot("Home");
+        Navigation.setRoot("Home", "Home");
     }
 
     @FXML
@@ -118,21 +98,10 @@ public class Form implements Initializable {
     }
 
     @FXML
-    private void edit(boolean visibility) {
-        System.out.println(visibility);
-        deleteButton.setVisible(visibility);
-        deleteButton.setManaged(visibility);
-
-        nextBtn.setVisible(visibility);
-        nextBtn.setManaged(visibility);
-
-        prevBtn.setVisible(visibility);
-        prevBtn.setManaged(visibility);
-    }
+    protected abstract void editMode(boolean visibility);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        edit(Navigation.getEditMode());
         addTextLimiterTextField(nameField, nameMaxChar, 20);
         addTextLimiterTextArea(addressField, addressMaxChar, 50);
         addressField.setWrapText(true);

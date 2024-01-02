@@ -7,10 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import com.application.controller.*;
 
 public class App extends Application {
     private static Scene scene;
-    private final String DEFAULT = "Home";
+    private final String DEFAULT_ROOT = "Home";
+    private final String DEFAULT_CONTROLLER = "Home";
     private final String ICON = "/images/icon.png";
 
     @Override
@@ -18,7 +20,7 @@ public class App extends Application {
 
         try {
             // Starting Page
-            scene = new Scene(loadPages(DEFAULT));
+            scene = new Scene(loadPages(DEFAULT_ROOT, DEFAULT_CONTROLLER));
             stage.setTitle("Hospital Patient Data Registration");
             Image icon = new Image(getClass().getResourceAsStream(ICON));
             stage.setMaximized(true);
@@ -32,9 +34,9 @@ public class App extends Application {
         }
     }
 
-    public static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml, String controller) throws IOException {
         try {
-            scene.setRoot(loadPages(fxml));
+            scene.setRoot(loadPages(fxml, controller));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,8 +44,24 @@ public class App extends Application {
         }
     }
 
-    private static Parent loadPages(String fxml) throws IOException {
+    private static Parent loadPages(String fxml, String controller) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        switch (controller) {
+            case "Home":
+                fxmlLoader.setController(new App());
+                break;
+            case "AddPatient":
+                fxmlLoader.setController(new AddPatient());
+                break;
+            case "ShowPatient":
+                fxmlLoader.setController(new ShowPatient());
+                break;
+            case "EditPatient":
+                fxmlLoader.setController(new EditPatient());
+                break;
+            default:
+                break;
+        }
         return fxmlLoader.load();
     }
 

@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.application.controller.NotificationUtil;
+import com.application.utils.NotificationUtil;
 
 public class PatientDAO {
     private Connection connection;
