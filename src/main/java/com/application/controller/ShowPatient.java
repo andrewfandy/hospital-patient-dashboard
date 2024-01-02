@@ -32,9 +32,21 @@ public class ShowPatient implements Initializable {
 
     }
 
+    private void setData(TableView<Patient> tableContainer) {
+        Patient selected = selectedPatient(tableContainer);
+        if (selected != null) {
+            patientDAO.setSelectedPatient(selected);
+        }
+    }
+
+    private static Patient selectedPatient(TableView<Patient> tableContainer) {
+        Patient selected = tableContainer.getSelectionModel().getSelectedItem();
+        return selected;
+    }
+
     @FXML
     private void deleteData(ActionEvent evt) throws IOException {
-        Patient selectedPatient = tableContainer.getSelectionModel().getSelectedItem();
+        Patient selectedPatient = selectedPatient(tableContainer);
         if (selectedPatient != null) {
             try {
                 patientDAO.deletePatient(selectedPatient);
@@ -54,7 +66,6 @@ public class ShowPatient implements Initializable {
         try {
             ObservableList<Patient> patients = FXCollections.observableArrayList(patientDAO.getAllPatients());
 
-            System.out.println(patients.size());
             tableContainer.setItems(patients);
             indexCol.setCellValueFactory(cell -> new SimpleStringProperty(patients.indexOf(cell.getValue()) + 1 + ""));
             nameCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getName()));
@@ -69,13 +80,13 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-
-        Navigation.navigateTo("Form", "EditPatient");
+        setData(tableContainer);
+        Navigation.navigateTo("EditForm");
     }
 
     @FXML
     private void toMenu(ActionEvent evt) throws IOException {
-        Navigation.navigateTo("Home", "Home");
+        Navigation.navigateTo("Home");
 
     }
 

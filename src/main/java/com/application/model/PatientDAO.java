@@ -32,6 +32,26 @@ public class PatientDAO {
         }
     }
 
+    public void setSelectedPatient(Patient patient) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE idpatient = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, patient.getId());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    patient.setName(resultSet.getString("name"));
+                    patient.setAddress(resultSet.getString("address"));
+                    patient.setPatientID("" + resultSet.getLong("patient_id"));
+                    patient.setBirth(resultSet.getDate("birth_date").toLocalDate());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            NotificationUtil.showNotification("Failed to get patient", "ERROR");
+        }
+    }
+
     public void deletePatient(Patient patient) throws SQLException {
         String sql = "DELETE FROM " + TABLE + " WHERE idpatient = ?";
 

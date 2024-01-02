@@ -7,15 +7,14 @@ import com.application.utils.NotificationUtil;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 
 // refactor to utils package
 
 public class Navigation extends App {
 
-    public static void navigateTo(String fxml, String controller) {
+    public static void navigateTo(String fxml) {
         try {
-            App.setRoot(fxml, controller);
+            App.setRoot(fxml);
         } catch (IOException e) {
             NotificationUtil.showNotification("Failed to navigate", "ERROR");
             e.printStackTrace();
@@ -24,14 +23,12 @@ public class Navigation extends App {
 
     @FXML
     private void addPatient(ActionEvent evt) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setController(AddPatient.class);
-        navigateTo("Form", "AddPatient");
+        navigateTo("AddForm");
     }
 
     @FXML
     private void displayPatient(ActionEvent evt) throws IOException {
-        navigateTo("ShowPatient", "ShowPatient");
+        navigateTo("ShowPatient");
     }
 
 }
