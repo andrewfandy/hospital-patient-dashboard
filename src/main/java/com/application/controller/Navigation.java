@@ -8,7 +8,7 @@ import com.application.utils.NotificationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-// refactor to utils package
+// test
 
 public class Navigation extends App {
 
