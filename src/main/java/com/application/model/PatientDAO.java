@@ -10,11 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import com.application.controller.NotificationUtil;
-=======
 import com.application.utils.NotificationUtil;
->>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
 
 public class PatientDAO {
     private Connection connection;
@@ -36,16 +32,6 @@ public class PatientDAO {
         }
     }
 
-<<<<<<< HEAD
-    public void deletePatient(Patient patient) throws SQLException {
-        String sql = "DELETE FROM " + TABLE + " WHERE idpatient = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, patient.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-=======
     public void setSelectedPatient(Patient patient) {
         String sql = "SELECT * FROM " + TABLE + " WHERE idpatient = ?";
 
@@ -74,7 +60,6 @@ public class PatientDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
->>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
             NotificationUtil.showNotification("Failed to delete patient", "ERROR");
         }
     }

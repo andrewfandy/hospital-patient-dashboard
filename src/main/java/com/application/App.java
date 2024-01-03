@@ -10,11 +10,7 @@ import java.io.IOException;
 
 public class App extends Application {
     private static Scene scene;
-<<<<<<< HEAD
-    private final String DEFAULT = "Home";
-=======
     private final String DEFAULT_ROOT = "Home";
->>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
     private final String ICON = "/images/icon.png";
 
     @Override
@@ -22,11 +18,7 @@ public class App extends Application {
 
         try {
             // Starting Page
-<<<<<<< HEAD
-            scene = new Scene(loadPages(DEFAULT));
-=======
             scene = new Scene(loadPages(DEFAULT_ROOT));
->>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
             stage.setTitle("Hospital Patient Data Registration");
             Image icon = new Image(getClass().getResourceAsStream(ICON));
             stage.setMaximized(true);
