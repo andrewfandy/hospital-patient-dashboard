@@ -12,6 +12,8 @@ import java.util.List;
 
 import com.application.utils.NotificationUtil;
 
+// REFACTOR : 1. Seperate the connection to another class
+//            2. Only to use CRUD operation
 public class PatientDAO {
     private Connection connection;
     private final String USER = "root";
@@ -20,7 +22,7 @@ public class PatientDAO {
     private final String TABLE = "patients";
 
     public PatientDAO() {
-        final String URL = "jdbc:mysql://localhost:3306/" + DATABASE;
+        final String URL = "jdbc:mysql://localhost:3306/" + this.DATABASE;
         final String USER = this.USER;
         final String PASSWORD = this.PASSWORD;
 

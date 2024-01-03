@@ -1,11 +1,5 @@
 package com.application.controller;
 
-<<<<<<< HEAD
-public class AddPatient {
-
-    // TODO : Refactor this class to be used in to add patient
-
-=======
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -48,5 +42,4 @@ public class AddPatient extends Form {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
     }
->>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
 }
