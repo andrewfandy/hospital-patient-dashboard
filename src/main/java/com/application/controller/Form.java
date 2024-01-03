@@ -3,12 +3,22 @@ package com.application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.time.LocalDate;
+=======
+>>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
 import java.util.ResourceBundle;
 
-import com.application.model.Patient;
-import com.application.model.PatientDAO;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.text.Text;
 
+<<<<<<< HEAD
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,11 +46,35 @@ public class Form implements Initializable {
     private Button deleteButton, nextBtn, prevBtn;
 
     private PatientDAO patientDAO;
+=======
+// TODO : Refactor this class to be used in both edit and add patient
+// TODO : Refactor to abstract class
 
-    public Form() {
-        this.patientDAO = new PatientDAO();
+public abstract class Form implements Initializable {
+    @FXML
+    protected TextField nameField, patientID;
+    @FXML
+    protected TextArea addressField;
+    @FXML
+    protected DatePicker birthDate;
+    @FXML
+    protected Text nameMaxChar, addressMaxChar, IDMaxChar;
+>>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
+
+    @FXML
+    public abstract void onSubmit(ActionEvent evt) throws IOException, SQLException;
+
+    protected void addTextLimiterTextArea(final TextArea tf, final Text lb, final int maxLength) {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            int currentChars = maxLength - newValue.length();
+            lb.setText(currentChars + " character(s) left");
+            if (newValue.length() > maxLength) {
+                tf.setText(newValue.substring(0, maxLength));
+            }
+        });
     }
 
+<<<<<<< HEAD
     // Save to Patient DAO
     private void savePatientData(String name, String address, String patientID, LocalDate birth) {
         Patient patient = new Patient();
@@ -75,6 +109,33 @@ public class Form implements Initializable {
         } else {
             NotificationUtil.showNotification("All fields are required", "ERROR");
         }
+=======
+    protected void addTextLimiterTextField(final TextField tf, final Text lb, final int maxLength) {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            int currentChars = maxLength - newValue.length();
+            lb.setText(currentChars + " character(s) left");
+            if (newValue.length() > maxLength) {
+                tf.setText(newValue.substring(0, maxLength));
+            }
+        });
+    }
+
+    @FXML
+    private void toMenu(ActionEvent evt) throws IOException {
+        Navigation.setRoot("Home");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addTextLimiterTextField(nameField, nameMaxChar, 20);
+        addTextLimiterTextArea(addressField, addressMaxChar, 50);
+        addressField.setWrapText(true);
+        addTextLimiterTextField(patientID, IDMaxChar, 15);
+
+        patientID.setTextFormatter(
+                new TextFormatter<>(change -> (change.getControlNewText().matches("^[0-9]*$")) ? change : null));
+
+>>>>>>> ddab9f17ad8829f2371da65637be35cbfb26e622
     }
 
     @FXML
