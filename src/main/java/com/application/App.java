@@ -11,7 +11,7 @@ import java.io.IOException;
 public class App extends Application {
     private static Scene scene;
     private final String DEFAULT_ROOT = "Home";
-    private final String ICON = "/images/icon.png";
+    private final String ICON = "/com/application/images/icon.png";
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -43,8 +43,15 @@ public class App extends Application {
     }
 
     private static Parent loadPages(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        try {
+            String fxmlURL = "/com/application/fxml/" + fxml + ".fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlURL));
+            return fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(fxml + " couldn't be loaded");
+            return null;
+        }
     }
 
     public static void main(String[] args) {
