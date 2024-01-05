@@ -14,9 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
 
-// TODO : Refactor this class to be used in both edit and add patient
-// TODO : Refactor to abstract class
-
 public abstract class Form implements Initializable {
     @FXML
     protected TextField nameField, patientID;

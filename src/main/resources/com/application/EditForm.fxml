@@ -89,7 +89,7 @@
                         <Font name="Verdana" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="backHome" layoutX="137.0" mnemonicParsing="false" onAction="#toMenu" prefHeight="40.0" prefWidth="162.0" text="Back to Home">
+                  <Button fx:id="backHome" mnemonicParsing="false" onAction="#toMenu" prefHeight="40.0" prefWidth="162.0" text="Back to Home">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
