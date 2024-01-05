@@ -50,6 +50,9 @@ public class ShowPatient implements Initializable {
         if (selectedPatient != null) {
             try {
                 patientDAO.deletePatient(selectedPatient);
+
+                // remove from table if really deleted
+
                 tableContainer.getItems().remove(selectedPatient);
                 System.out.println("Data deleted");
             } catch (SQLException e) {
@@ -72,6 +75,7 @@ public class ShowPatient implements Initializable {
             addressCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
             birthCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getBirth() + ""));
             patientIDCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getPatientID()));
+
         } catch (SQLException e) {
             e.printStackTrace();
             NotificationUtil.showNotification("Failed to show data", "ERROR");
