@@ -36,6 +36,8 @@ public class ShowPatient implements Initializable {
         Patient selected = selectedPatient(tableContainer);
         if (selected != null) {
             patientDAO.setSelectedPatient(selected);
+        } else {
+            NotificationUtil.showNotification("No row selected", "ERROR");
         }
     }
 
@@ -51,7 +53,7 @@ public class ShowPatient implements Initializable {
             try {
                 patientDAO.deletePatient(selectedPatient);
 
-                // remove from table if really deleted
+                // TODO : remove from table if really deleted by index
 
                 tableContainer.getItems().remove(selectedPatient);
                 System.out.println("Data deleted");

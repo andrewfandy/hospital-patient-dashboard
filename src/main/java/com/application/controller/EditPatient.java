@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-// TODO : Navigation SASA
 public class EditPatient extends Form {
     @FXML
     private Pane arrowWrapper;

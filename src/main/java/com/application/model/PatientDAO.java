@@ -24,7 +24,7 @@ public class PatientDAO extends Database {
     }
 
     public void setSelectedPatient(Patient patient) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE idpatient = ?";
+        String sql = "SELECT * FROM " + TABLE + " WHERE patient_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, Integer.parseInt(patient.getPatientID()));
@@ -35,6 +35,7 @@ public class PatientDAO extends Database {
                     patient.setAddress(resultSet.getString("address"));
                     patient.setPatientID("" + resultSet.getLong("patient_id"));
                     patient.setBirth(resultSet.getDate("birth_date").toLocalDate());
+                    System.out.println(patient);
                 }
             }
         } catch (SQLException e) {
