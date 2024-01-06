@@ -5,13 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-// TODO : 1. Create a connection to database
-//        2. Check if the connection is valid. If not, execute MySQL statement to create a database
-//        3. Create a table if not exists
 public class Database {
     private Connection connection;
     private final String DATABASE = "patients_database";
-    private final String TABLE = "patients";
+    private final String MAIN_TABLE = "patients";
     private final String URL = "jdbc:sqlite:db/" + DATABASE + ".db";
 
     public Database() {
@@ -28,9 +25,10 @@ public class Database {
         return this.connection;
     }
 
-    public String getTableName() {
-        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE + "(\n"
-                + "patient_id INT(15) PRIMARY KEY NOT NULL,\n"
+    public String getMainTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS " + MAIN_TABLE + "(\n"
+                + "idpatient INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + "patient_id INT(15) UNIQUE NOT NULL,\n"
                 + "name TEXT(20) NOT NULL,\n"
                 + "address TEXT(50) NOT NULL,\n"
                 + "birth_date DATE NOT NULL\n"
@@ -43,7 +41,7 @@ public class Database {
             NotificationUtil.showNotification("Failed to create table", "ERROR");
         }
 
-        return this.TABLE;
+        return this.MAIN_TABLE;
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.application.App;
 import com.application.model.Patient;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -34,15 +35,17 @@ public class ShowPatient implements Initializable {
 
     private void setData(TableView<Patient> tableContainer) {
         Patient selected = selectedPatient(tableContainer);
+
         if (selected != null) {
-            patientDAO.setSelectedPatient(selected);
         } else {
             NotificationUtil.showNotification("No row selected", "ERROR");
         }
     }
 
     private static Patient selectedPatient(TableView<Patient> tableContainer) {
+        System.out.println("selected patient");
         Patient selected = tableContainer.getSelectionModel().getSelectedItem();
+        System.out.println(selected);
         return selected;
     }
 
@@ -52,17 +55,14 @@ public class ShowPatient implements Initializable {
         if (selectedPatient != null) {
             try {
                 patientDAO.deletePatient(selectedPatient);
-
-                // TODO : remove from table if really deleted by index
-
                 tableContainer.getItems().remove(selectedPatient);
-                System.out.println("Data deleted");
             } catch (SQLException e) {
                 e.printStackTrace();
                 NotificationUtil.showNotification("Failed to delete data", "ERROR");
             }
         } else {
-            System.out.println("No row selected");
+            NotificationUtil.showNotification("No row selected", "ERROR");
+
         }
     }
 
@@ -86,8 +86,13 @@ public class ShowPatient implements Initializable {
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-        setData(tableContainer);
-        Navigation.navigateTo("EditForm");
+        if (selectedPatient(tableContainer) == null) {
+            NotificationUtil.showNotification("No row selected", "ERROR");
+            return;
+        } else {
+            setData(tableContainer);
+            Navigation.navigateTo("EditForm");
+        }
     }
 
     @FXML

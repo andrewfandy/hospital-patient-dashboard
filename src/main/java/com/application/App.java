@@ -45,8 +45,8 @@ public class App extends Application {
     private static Parent loadPages(String fxml) throws IOException {
         try {
             String fxmlURL = "/com/application/fxml/" + fxml + ".fxml";
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlURL));
-            return fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlURL));
+            return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(fxml + " couldn't be loaded");
