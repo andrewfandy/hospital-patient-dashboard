@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.application.App;
 import com.application.model.Patient;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,7 +19,7 @@ import java.sql.SQLException;
 import com.application.model.PatientDAO;
 import com.application.utils.NotificationUtil;
 
-public class ShowPatient implements Initializable {
+public class ShowPatient extends EditPatient {
     @FXML
     private TableView<Patient> tableContainer;
     @FXML
@@ -90,8 +88,7 @@ public class ShowPatient implements Initializable {
             NotificationUtil.showNotification("No row selected", "ERROR");
             return;
         } else {
-            setData(tableContainer);
-            Navigation.navigateTo("EditForm");
+            super.isEditable(true);
         }
     }
 

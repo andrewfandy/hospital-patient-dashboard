@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,6 +24,8 @@ public abstract class Form implements Initializable {
     protected DatePicker birthDate;
     @FXML
     protected Text nameMaxChar, addressMaxChar, IDMaxChar;
+    @FXML
+    protected Button submitBtn;
 
     @FXML
     public abstract void onSubmit(ActionEvent evt) throws IOException, SQLException;

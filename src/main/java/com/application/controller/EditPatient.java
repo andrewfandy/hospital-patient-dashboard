@@ -9,20 +9,12 @@ import com.application.model.PatientDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 public class EditPatient extends Form {
-    @FXML
-    private Pane arrowWrapper;
-    @FXML
-    private Button deleteButton, nextBtn, prevBtn;
 
     @FXML
-    private Text nameMaxChar;
-
-    private int referenceID;
+    Pane editPane;
 
     @Override
     @FXML
@@ -46,21 +38,21 @@ public class EditPatient extends Form {
 
     }
 
-    private void setValueText() {
-        System.out.println(this.referenceID);
-        // Patient patient = PatientDAO.getSelectedPatient(referenceID);
-        // System.out.println(patient);
+    // public void setReferenceID(int refID) {
+    // this.referenceID = refID;
+    // }
 
-    }
-
-    public void setReferenceID(int refID) {
-        this.referenceID = refID;
+    public void isEditable(boolean isEdit) {
+        super.nameField.setEditable(isEdit);
+        super.addressField.setDisable(isEdit);
+        super.patientID.setDisable(isEdit);
+        super.birthDate.setDisable(isEdit);
+        super.submitBtn.setDisable(isEdit);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        setValueText();
         addTextLimiterTextField(nameField, nameMaxChar, 20);
         addTextLimiterTextArea(addressField, IDMaxChar, 0);
         addTextLimiterTextField(patientID, IDMaxChar, 0);

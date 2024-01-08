@@ -53,7 +53,7 @@ public class PatientDAO extends Database {
         String sql = "DELETE FROM " + MAIN_TABLE + " WHERE idpatient = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, Integer.parseInt(patient.getPatientID()));
+            statement.setInt(1, patient.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
