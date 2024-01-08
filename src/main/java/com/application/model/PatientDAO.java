@@ -20,12 +20,12 @@ public class PatientDAO extends Database {
         MAIN_TABLE = super.getMainTable();
     }
 
-    public static Patient getSelectedPatient(int referenceID) {
+    public Patient getSelectedPatient(int referenceID) {
         Patient patient = new Patient();
-        String sql = "SELECT * FROM " + MAIN_TABLE + " WHERE " + referenceID + " = ?";
+        String sql = "SELECT * FROM " + MAIN_TABLE + " WHERE idpatient = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, Integer.parseInt(patient.getPatientID()));
+            statement.setInt(1, referenceID);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

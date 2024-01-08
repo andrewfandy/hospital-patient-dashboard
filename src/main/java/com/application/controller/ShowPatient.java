@@ -25,25 +25,24 @@ public class ShowPatient extends EditPatient {
     @FXML
     private TableColumn<Patient, String> indexCol, nameCol, addressCol, patientIDCol, birthCol;
     private PatientDAO patientDAO;
+    private EditPatient editPatientController;
 
     public ShowPatient() {
         this.patientDAO = new PatientDAO();
-
+        this.editPatientController = new EditPatient();
     }
 
-    private void setData(TableView<Patient> tableContainer) {
-        Patient selected = selectedPatient(tableContainer);
+    // private void setData(TableView<Patient> tableContainer) {
+    // Patient selected = selectedPatient(tableContainer);
 
-        if (selected != null) {
-        } else {
-            NotificationUtil.showNotification("No row selected", "ERROR");
-        }
-    }
+    // if (selected != null) {
+    // } else {
+    // NotificationUtil.showNotification("No row selected", "ERROR");
+    // }
+    // }
 
     private static Patient selectedPatient(TableView<Patient> tableContainer) {
-        System.out.println("selected patient");
         Patient selected = tableContainer.getSelectionModel().getSelectedItem();
-        System.out.println(selected);
         return selected;
     }
 
@@ -84,11 +83,17 @@ public class ShowPatient extends EditPatient {
 
     @FXML
     private void toEditForm(ActionEvent evt) throws IOException {
-        if (selectedPatient(tableContainer) == null) {
-            NotificationUtil.showNotification("No row selected", "ERROR");
-            return;
-        } else {
-            super.isEditable(true);
+        try {
+            Patient selectedPatient = selectedPatient(tableContainer);
+            if (selectedPatient != null) {
+                editPatientController.loadPatientData(selectedPatient.getId());
+
+            } else {
+                NotificationUtil.showNotification("No row selected", "ERROR");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            NotificationUtil.showNotification("Failed to load data", "ERROR");
         }
     }
 

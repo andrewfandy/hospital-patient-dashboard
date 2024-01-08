@@ -16,6 +16,12 @@ public class EditPatient extends Form {
     @FXML
     Pane editPane;
 
+    private PatientDAO patientDAO;
+
+    public EditPatient() {
+        this.patientDAO = new PatientDAO();
+    }
+
     @Override
     @FXML
     public void onSubmit(ActionEvent evt) throws IOException {
@@ -42,12 +48,25 @@ public class EditPatient extends Form {
     // this.referenceID = refID;
     // }
 
+    @FXML
     public void isEditable(boolean isEdit) {
-        super.nameField.setEditable(isEdit);
-        super.addressField.setDisable(isEdit);
-        super.patientID.setDisable(isEdit);
-        super.birthDate.setDisable(isEdit);
-        super.submitBtn.setDisable(isEdit);
+        nameField.setEditable(isEdit);
+        addressField.setEditable(isEdit);
+        patientID.setEditable(isEdit);
+        birthDate.setDisable(!isEdit);
+        submitBtn.setDisable(!isEdit);
+    }
+
+    public void loadPatientData(int idpatient) {
+        // Patient patient = patientDAO.getSelectedPatient(idpatient);
+        isEditable(true);
+        // if (patient != null) {
+        // super.nameField.setText(patient.getName());
+        // super.addressField.setText(patient.getAddress());
+        // super.patientID.setText(patient.getPatientID());
+        // super.birthDate.setValue(patient.getBirth());
+        // isEditable(true);
+        // }
     }
 
     @Override
